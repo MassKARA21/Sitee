@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Архитектура информационных систем</title>
+<style>
+:root{--bg:#eef2f8;--card:#ffffff;--ink:#14203a;--mute:#56627d;--line:#dde4ef;--acc:#0b7d96;--accbg:#dcf1f6;--alt:#f4f7fc;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#131d33;--ink:#eaf0fb;--mute:#9fadc9;--line:#25314d;--acc:#5ad1e6;--accbg:#12384a;--alt:#0e1628}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#131d33;--ink:#eaf0fb;--mute:#9fadc9;--line:#25314d;--acc:#5ad1e6;--accbg:#12384a;--alt:#0e1628}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:20px 8%}
+.logo{font-weight:700;font-size:19px}
+nav{display:flex;gap:22px;flex-wrap:wrap;font-size:15px}
+nav a{color:var(--mute);text-decoration:none}nav a:hover,nav a:focus-visible{color:var(--ink)}
+.hero{margin:0 5%;border-radius:28px;background:linear-gradient(135deg,#101a3d 0%,#1b2f5e 55%,#0f5560 100%);color:#eef3fc;padding:64px 6%;display:flex;gap:40px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.hero-text{max-width:560px}
+.pill{display:inline-block;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 16px;font-size:14px}
+h1{font-size:clamp(34px,5.4vw,60px);line-height:1.08;margin:22px 0 16px}
+.hero p{color:#cdd7ee;font-size:18px;margin-bottom:28px}
+.btn{display:inline-block;background:#5ad1e6;color:#08202a;border-radius:12px;padding:13px 24px;font-weight:700;text-decoration:none}
+.btn:focus-visible,.tab:focus-visible{outline:3px solid #8fc6ff;outline-offset:2px}
+.stack{display:grid;gap:10px;width:300px;max-width:100%}
+.stack div{border-radius:14px;padding:16px 18px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);font-weight:600}
+.stack small{display:block;font-weight:400;color:#b8c5e3;font-size:13px}
+section{padding:64px 8% 0}
+h2{font-size:clamp(26px,3.6vw,36px);margin-bottom:8px}
+.sub{color:var(--mute);max-width:640px;margin-bottom:26px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.card h3{font-size:18px;margin:12px 0 6px}.card p{color:var(--mute);font-size:15px}
+.ic{width:48px;height:48px;border-radius:14px;background:var(--accbg);display:grid;place-items:center;font-size:24px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.tab{font:600 15px inherit;font-family:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 18px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--acc);color:#06222b;border-color:var(--acc)}
+#panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;max-width:760px}
+#panel h3{margin-bottom:8px}#panel p{color:var(--mute)}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;counter-reset:s}
+.steps li{counter-increment:s;border-top:3px solid var(--acc);padding-top:14px}
+.steps li:before{content:counter(s);display:block;font-size:28px;font-weight:700;color:var(--acc)}
+.steps b{display:block;margin:4px 0}.steps span{color:var(--mute);font-size:15px}
+.case h3{margin:0 0 6px}.case p{color:var(--mute);font-size:15px;margin-bottom:10px}.case .why{color:var(--ink)}.case a{color:var(--acc);font-size:14px;display:block;margin-top:4px}.wide{margin-top:24px;max-width:760px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}.chips span{background:var(--accbg);border-radius:999px;padding:4px 12px;font-size:14px}
+.jf{display:grid;gap:14px;max-width:520px}.jf label{display:grid;gap:6px;font-weight:600;font-size:15px}.jf input,.jf select{font:inherit;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink)}.jf input:focus-visible,.jf select:focus-visible{outline:3px solid #8fc6ff;outline-offset:2px}#jm{min-height:24px;font-weight:600}.ok{color:var(--acc)}.er{color:#c23b3b}.lnk{color:var(--acc)}
+footer{margin-top:72px;text-align:center;padding:22px;border-top:1px solid var(--line);color:var(--mute);font-size:13px}
+@media (max-width:640px){.hero{padding:40px 6%}header{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">Архитектура информационных систем</div>
+<nav><a href="#about">О теме</a><a href="#parts">Составляющие</a><a href="#layers">Уровни</a><a href="#styles">Подходы</a><a href="#steps">Этапы</a><a href="#cases">Реальные случаи</a><a href="#companies">Компании</a><a href="#join">Заявка</a></nav>
+</header>
+<main>
+<div class="hero">
+<div class="hero-text">
+<span class="pill">IT · проектирование систем</span>
+<h1>Как устроены информационные системы</h1>
+<p>Архитектура определяет, из каких частей состоит система, как они связаны между собой и как система растёт и защищается.</p>
+<a class="btn" href="#layers">Посмотреть уровни</a>
+</div>
+<div class="stack" aria-label="Схема уровней системы">
+<div>Представление<small>интерфейс пользователя</small></div>
+<div>Бизнес-логика<small>правила и обработка</small></div>
+<div>Данные<small>базы и хранилища</small></div>
+</div>
+</div>
+
+<section id="about"><h2>Что такое архитектура системы</h2>
+<p class="sub">Это общий план информационной системы: набор компонентов, связи между ними и правила, по которым они работают. Хорошая архитектура делает систему понятной, надёжной и удобной для развития.</p></section>
+
+<section id="parts"><h2>Из чего состоит система</h2><p class="sub">Четыре основные составляющие, которые учитывает архитектор.</p>
+<div class="grid">
+<div class="card"><div class="ic">🗄️</div><h3>Данные</h3><p>Базы данных, хранилища и правила работы с информацией.</p></div>
+<div class="card"><div class="ic">🧩</div><h3>Приложения</h3><p>Программы, которые обрабатывают данные и решают задачи пользователей.</p></div>
+<div class="card"><div class="ic">🖥️</div><h3>Инфраструктура</h3><p>Серверы, сети и облачные сервисы, на которых всё работает.</p></div>
+<div class="card"><div class="ic">🔒</div><h3>Безопасность</h3><p>Защита данных, права доступа и резервное копирование.</p></div>
+</div></section>
+
+<section id="layers"><h2>Трёхуровневая архитектура</h2><p class="sub">Выберите уровень, чтобы узнать, за что он отвечает.</p>
+<div class="tabs" role="tablist">
+<button class="tab" role="tab" aria-selected="true" data-i="0">Представление</button>
+<button class="tab" role="tab" aria-selected="false" data-i="1">Бизнес-логика</button>
+<button class="tab" role="tab" aria-selected="false" data-i="2">Данные</button>
+</div>
+<div id="panel" role="tabpanel"></div></section>
+
+<section id="styles"><h2>Подходы к построению</h2><p class="sub">Один и тот же сервис можно построить по-разному.</p>
+<div class="grid">
+<div class="card"><h3>Монолит</h3><p>Все части в одном приложении. Проще начать, но сложнее масштабировать.</p></div>
+<div class="card"><h3>Клиент-сервер</h3><p>Клиент отправляет запросы, сервер обрабатывает их и хранит данные.</p></div>
+<div class="card"><h3>Микросервисы</h3><p>Система разбита на небольшие независимые сервисы, которые общаются между собой.</p></div>
+</div></section>
+
+<section id="steps"><h2>Этапы проектирования</h2><p class="sub">Путь от задачи до работающей системы.</p>
+<ol class="steps">
+<li><b>Требования</b><span>Что должна уметь система и для кого.</span></li>
+<li><b>Моделирование</b><span>Схемы данных и процессов.</span></li>
+<li><b>Проектирование</b><span>Выбор технологий и структуры.</span></li>
+<li><b>Реализация</b><span>Разработка и тестирование.</span></li>
+<li><b>Сопровождение</b><span>Обновление и развитие.</span></li>
+</ol></section>
+
+<section id="cases"><h2>Реальные случаи в современном мире</h2><p class="sub">Три известных примера показывают, как архитектурные решения влияют на работу больших сервисов.</p>
+<div class="grid">
+<div class="card case"><h3>Netflix: переход в облако</h3><p>После сбоя базы данных в 2008 году Netflix начал переносить систему в облако AWS и разбивать её на микросервисы. Перенос завершили в 2016 году, когда закрыли последние собственные дата-центры.</p><p class="why"><b>Чем важно:</b> архитектура позволила сервису расти вместе с числом зрителей.</p><a href="https://jyx.jyu.fi/handle/123456789/73889" target="_blank" rel="noopener">Исследование: The design towards microservices, the case of Netflix</a><a href="https://algomaster.io/learn/microservices/case-study-netflix" target="_blank" rel="noopener">Разбор: Netflix Microservices Architecture</a></div>
+<div class="card case"><h3>Сбой AWS, октябрь 2025</h3><p>19–20 октября 2025 года ошибка в автоматизации DNS для базы DynamoDB в регионе us-east-1 вызвала цепочку сбоев. Сервисы и приложения по всему миру работали с перебоями около 15 часов. По данным AWS, это не была кибератака.</p><p class="why"><b>Чем важно:</b> зависимость от одного региона или компонента может остановить много систем сразу.</p><a href="https://aws.amazon.com/jp/message/101925/" target="_blank" rel="noopener">Официальный разбор AWS</a><a href="https://www.infoq.com/news/2025/11/aws-dynamodb-outage-postmortem" target="_blank" rel="noopener">InfoQ: Race Condition in DynamoDB DNS System</a></div>
+<div class="card case"><h3>Prime Video: возврат к монолиту</h3><p>В 2023 году команда Prime Video перенесла сервис контроля качества видео с распределённых микросервисов в одно приложение. По её словам, расходы на инфраструктуру снизились более чем на 90%, а масштабирование улучшилось.</p><p class="why"><b>Чем важно:</b> модная архитектура не всегда лучшая, выбирать нужно под задачу.</p><a href="https://www.primevideotech.com/video-streaming/scaling-up-the-prime-video-audio-video-monitoring-service-and-reducing-costs-by-90" target="_blank" rel="noopener">Статья команды Prime Video</a><a href="https://dev.to/indika_wimalasuriya/amazon-prime-videos-90-cost-reduction-throuh-moving-to-monolithic-k4a" target="_blank" rel="noopener">Пересказ на DEV Community</a></div>
+</div>
+<div class="card wide"><h3>Почему архитектура важна</h3><p>От неё зависят доступность сервиса (будет ли он работать при сбое), стоимость (сколько платить за серверы), возможность расти и безопасность данных. Ошибку в архитектуре исправлять дороже всего, поэтому её продумывают до начала разработки.</p></div>
+</section>
+
+<section id="companies"><h2>В каких компаниях нужны архитекторы</h2><p class="sub">Архитекторы систем и решений нужны везде, где есть большие IT-системы. Ниже главные примеры по направлениям, это не полный список.</p>
+<div class="grid">
+<div class="card"><h3>Облака и технологические гиганты</h3><div class="chips"><span>Amazon (AWS)</span><span>Microsoft</span><span>Google</span><span>Apple</span><span>NVIDIA</span><span>Oracle</span><span>IBM</span><span>SAP</span><span>Meta</span><span>Netflix</span></div></div>
+<div class="card"><h3>Консалтинг и IT-услуги</h3><div class="chips"><span>Accenture</span><span>Capgemini</span><span>Cognizant</span><span>Tata Consultancy Services</span><span>Databricks</span></div></div>
+<div class="card"><h3>Банки и финтех</h3><div class="chips"><span>JPMorgan Chase</span><span>Stripe</span><span>Bloomberg</span><span>Visa</span></div></div>
+<div class="card"><h3>Азия и СНГ</h3><div class="chips"><span>Alibaba</span><span>Tencent</span><span>Yandex</span><span>Kaspi.kz</span></div></div>
+</div>
+<p class="sub" style="margin-top:18px">По данным сайтов с вакансиями, больше всего открытых мест архитектора решений в США у AWS и NVIDIA. <a class="lnk" href="https://jobspipe.dev/jobs/solutions-architect/usa" target="_blank" rel="noopener">Источник: JobsPipe</a> · <a class="lnk" href="https://www.employbl.com/blog/solutions-architect-software-companies-2026" target="_blank" rel="noopener">Employbl</a></p></section>
+
+<section id="join"><h2>Хотите научиться? Оставьте заявку</h2><p class="sub">Если вам интересно изучать архитектуру информационных систем, заполните форму.</p>
+<form class="jf" id="jf" novalidate>
+<label>Имя<input id="jn" autocomplete="name"></label>
+<label>Как с вами связаться<input id="jc" placeholder="Телефон или почта"></label>
+<label>Ваш уровень<select id="jl"><option value="">Выберите</option><option>Начинающий</option><option>Уже есть база</option><option>Учусь в IT</option></select></label>
+<button class="btn" type="submit" style="border:0;cursor:pointer;font:700 16px inherit;font-family:inherit">Оставить заявку</button>
+<div id="jm" role="status"></div>
+</form></section>
+</main>
+<footer>АИСР 111 · Учебный проект</footer>
+<script>
+var L=[["Представление","Всё, что видит пользователь: сайт, мобильное приложение, формы и кнопки. Задача уровня — быть понятным и удобным."],["Бизнес-логика","Правила и расчёты системы: проверка заявок, оплата, права доступа. Здесь решается, что система делает с данными."],["Данные","Хранение и защита информации: базы данных, файлы, резервные копии. Уровень отвечает за надёжность и скорость доступа."]];
+var tabs=document.querySelectorAll('.tab'),p=document.getElementById('panel');
+function show(i){tabs.forEach(function(t,k){t.setAttribute('aria-selected',k==i)});p.innerHTML='<h3></h3><p></p>';p.firstChild.textContent=L[i][0];p.lastChild.textContent=L[i][1]}
+tabs.forEach(function(t){t.addEventListener('click',function(){show(+t.dataset.i)})});show(0);
+var jf=document.getElementById('jf'),jm=document.getElementById('jm');
+jf.addEventListener('submit',function(e){e.preventDefault();var n=document.getElementById('jn').value.trim(),c=document.getElementById('jc').value.trim(),l=document.getElementById('jl').value;
+if(!n||c.length<5||!l){jm.className='er';jm.textContent='Укажите имя, способ связи и уровень.';return}
+jm.className='ok';jm.textContent='Спасибо, '+n+'! Заявка принята.';jf.reset()});
+</script>
+</body>
+</html>
